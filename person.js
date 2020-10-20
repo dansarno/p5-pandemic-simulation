@@ -10,7 +10,7 @@ class Person {
     this.infected = infected;
     this.days_infected = 0;
     this.recovered = false;
-    
+
     if (this.infected) {this.infection()}
   }
 
@@ -28,13 +28,13 @@ class Person {
       }
     }
   }
-  
+
   infection() {
     this.infected = true;
-    this.r = 15;
+    this.r = 8;
     this.colour = color(187, 100, 29); //"#bb641d";
   }
-  
+
   recovery() {
     this.infected = false;
     this.recovered = true;
@@ -46,7 +46,7 @@ class Person {
     this.x += this.vx * this.speed;
     this.y += this.vy * this.speed;
   }
-  
+
   checkup() {
     if (this.infected && this.days_infected > 12) {
       this.recovery()
@@ -77,4 +77,3 @@ class Person {
     }
   }
 }
-
