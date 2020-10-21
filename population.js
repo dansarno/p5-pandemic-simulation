@@ -40,10 +40,12 @@ class Population {
       if (p.infected) {
         this.I++;
       }
-      if (p.recovered) {
+      else if (p.recovered) {
         this.R++;
       }
+      else {
+        this.S++;
+      }
     }
-    this.S = this.size - (this.I + this.R);
   }
 }

@@ -18,6 +18,11 @@ function draw() {
 
   update_timeline(population);
   image(timeline_canvas, 0, windowHeight - timeline_height);
+  // console.log(frameRate());
+  fill(0);
+  noStroke();
+  textSize(32);
+  text(int(frameRate()), 10, 30);
 }
 
 function update_timeline(people) {
