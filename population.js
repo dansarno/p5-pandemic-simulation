@@ -13,7 +13,7 @@ class Population {
 
   populate() {
     for (let i = 0; i < this.size; i++) {
-      this.people[i] = new Person(this.environment, random() < init_infection);
+      this.people[i] = new Person(this.environment, random() < this.init_infection);
     }
   }
 
