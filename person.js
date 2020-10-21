@@ -1,14 +1,16 @@
 class Person {
-  constructor(infected=false) {
+  constructor(environment, infected=false) {
+    this.environment = environment;
+    this.infected = infected;
     this.r = 5;
-    this.x = random(this.r, width - this.r);
-    this.y = random(this.r, height - this.r);
+    this.x = random(this.r, this.environment.w - this.r);
+    this.y = random(this.r, this.environment.h - this.r);
     this.speed = 1;
     this.vx = random(-2, 2);
     this.vy = random(-2, 2);
     this.colour = color(170, 198, 202); // "#aac6ca";
-    this.infected = infected;
     this.days_infected = 0;
+    this.infection_period = random(10, 14);
     this.recovered = false;
 
     if (this.infected) {this.infection()}
@@ -48,7 +50,7 @@ class Person {
   }
 
   checkup() {
-    if (this.infected && this.days_infected > 12) {
+    if (this.infected && this.days_infected > this.infection_period) {
       this.recovery()
     }
     if (this.infected) {
@@ -68,11 +70,11 @@ class Person {
   }
 
   bounce() {
-    if (this.x - this.r < 0 || this.x + this.r > width) {
+    if (this.x - this.r < 0 || this.x + this.r > this.environment.w) {
       this.vx *= -1;
     }
 
-    if (this.y - this.r < 0 || this.y + this.r > height) {
+    if (this.y - this.r < 0 || this.y + this.r > this.environment.h) {
       this.vy *= -1;
     }
   }
