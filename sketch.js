@@ -2,19 +2,20 @@ let population_slider;
 let init_infection_slider;
 let timeline_canvas;
 let timeline_height = 200;
+let canvas_height = 600;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(windowWidth, canvas_height);
   let initial_frame = frameCount;
   timeline_canvas = createGraphics(windowWidth, timeline_height);
   timeline_canvas.background(255);
 
   let button = createButton("Start Simulation");
   button.mousePressed(resetSketch);
-  population_slider = createSlider(0, 200, 100);
+  population_slider = createSlider(0, 200, 100, 1);
   init_infection_slider = createSlider(0.0, 0.2, 0.1, 0.01);
 
-  env = new Environment(windowWidth, windowHeight - timeline_height);
+  env = new Environment(windowWidth, canvas_height - timeline_height);
   resetSketch();
 }
 
@@ -24,7 +25,7 @@ function draw() {
   population.test();
 
   update_timeline(population, initial_frame);
-  image(timeline_canvas, 0, windowHeight - timeline_height);
+  image(timeline_canvas, 0, canvas_height - timeline_height);
   // console.log(frameRate());
   fill(0);
   noStroke();

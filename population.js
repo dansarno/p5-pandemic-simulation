@@ -18,6 +18,10 @@ class Population {
   }
 
   update() {
+    let boundary = new Box(this.environment.w / 2, this.environment.h / 2,
+      this.environment.w / 2, this.environment.h / 2);
+    let qtree = new QuadTree(boundary, 4);
+
     for (let p of this.people) {
       for (let q of this.people) {
         if (p !== q && p.contact(q)) {
@@ -25,11 +29,16 @@ class Population {
           q.infection();
         }
       }
-    p.bounce();
-    p.checkup();
-    p.move();
-    p.show();
+
+      let point = new Point(p.x, p.y, p);
+      qtree.insert(point);
+
+      p.bounce();
+      p.checkup();
+      p.move();
+      p.show();
     }
+    qtree.show();
   }
 
   test() {
@@ -47,5 +56,17 @@ class Population {
         this.S++;
       }
     }
+  }
+
+  slow_down() {
+    for (let p of this.people) {
+          p.speed *= 0.5;
+      }
+  }
+
+  speed_up() {
+    for (let p of this.people) {
+          p.speed *= 1.5;
+      }
   }
 }
