@@ -30,15 +30,20 @@ class Population {
         }
       }
 
-      let point = new Point(p.x, p.y, p);
-      qtree.insert(point);
-
       p.bounce();
       p.checkup();
       p.move();
-      p.show();
+
+      let point = new Point(p.x, p.y, p);
+      qtree.insert(point);
     }
     qtree.show();
+
+    for (let p of this.people) {
+      p.show();
+    }
+
+    // console.log(qtree);
   }
 
   test() {

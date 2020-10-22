@@ -33,7 +33,7 @@ class Box {
 }
 
 class QuadTree {
-  constructor (boundary, capacity=4) {
+  constructor (boundary, capacity) {
     this.boundary = boundary;
     this.capacity = capacity;
     this.points = [];
@@ -45,36 +45,29 @@ class QuadTree {
 
   show() {
     noFill();
-    strokeWeight(3);
-    stroke(100,0,0);
+    strokeWeight(1);
+    stroke(200);
     rectMode(CENTER);
     rect(this.boundary.centre_x, this.boundary.centre_y,
       this.boundary.half_w * 2, this.boundary.half_h * 2);
-    if (this.nw == null) {
-        this.nw.show();
-        this.ne.show();
-        this.sw.show();
-        this.se.show();
-      }
+
+    if (this.nw != null) {
+      this.nw.show();
+      this.ne.show();
+      this.sw.show();
+      this.se.show();
+    }
   }
 
   subdivide() {
-    this.nw = new QuadTree(new Box(this.boundary.centre_x / 2, // centre x
-                              this.boundary.centre_y / 2, // centre y
-                              this.boundary.half_w / 2, // half width
-                              this.boundary.half_h / 2)); // half height
-    this.ne = new QuadTree(new Box(this.boundary.centre_x / 2 + this.boundary.half_w,
-                              this.boundary.centre_y / 2,
-                              this.boundary.half_w / 2,
-                              this.boundary.half_h / 2));
-    this.sw = new QuadTree(new Box(this.boundary.centre_x / 2,
-                              this.boundary.centre_y / 2 + this.boundary.half_h,
-                              this.boundary.half_w / 2,
-                              this.boundary.half_h / 2));
-    this.se = new QuadTree(new Box(this.boundary.centre_x / 2 + this.boundary.half_w,
-                              this.boundary.centre_y / 2 + this.boundary.half_h,
-                              this.boundary.half_w / 2,
-                              this.boundary.half_h / 2));
+    let x = this.boundary.centre_x;
+    let y = this.boundary.centre_y;
+    let w = this.boundary.half_w / 2;
+    let h = this.boundary.half_h / 2;
+    this.nw = new QuadTree(new Box(x - w, y - h, w, h), this.capacity);
+    this.ne = new QuadTree(new Box(x + w, y - h, w, h), this.capacity);
+    this.sw = new QuadTree(new Box(x - w, y + h, w, h), this.capacity);
+    this.se = new QuadTree(new Box(x + w, y + h, w, h), this.capacity);
   }
 
   // Insert a point into the QuadTree
@@ -84,8 +77,9 @@ class QuadTree {
         return false; // object cannot be added
       }
 
-    // If there is space in this quad tree and if doesn't have subdivisions, add the object here
-    if (this.points.length < this.capacity && this.nw == null) {
+    // If there is space in this quad tree and if doesn't have subdivisions,
+    // add the object here
+    if ((this.points.length < this.capacity) && this.nw == null) {
         this.points.push(p);
         return true;
       }
@@ -94,8 +88,8 @@ class QuadTree {
     if (this.nw == null) {
         this.subdivide();
       }
-    //We have to add the points/data contained into this quad array to the new quads if we only want
-    //the last node to hold the data
+    //We have to add the points/data contained into this quad array to the new
+    //quads if we only want the last node to hold the data
 
     if (this.nw.insert(p)) {return true;}
     if (this.ne.insert(p)) {return true;}

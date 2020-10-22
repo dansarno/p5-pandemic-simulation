@@ -62,7 +62,7 @@ class Person {
     colorMode(RGB, 255, 255, 255, 100);
     this.colour.setAlpha(100);
     stroke(this.colour);
-    point(this.x, this.y);
+    ellipse(this.x, this.y, 1);
     strokeWeight(2);
     this.colour.setAlpha(30);
     fill(this.colour);
