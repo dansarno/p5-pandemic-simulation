@@ -43,22 +43,6 @@ class QuadTree {
     this.se = null;
   }
 
-  show() {
-    noFill();
-    strokeWeight(1);
-    stroke(200);
-    rectMode(CENTER);
-    rect(this.boundary.centre_x, this.boundary.centre_y,
-      this.boundary.half_w * 2, this.boundary.half_h * 2);
-
-    if (this.nw != null) {
-      this.nw.show();
-      this.ne.show();
-      this.sw.show();
-      this.se.show();
-    }
-  }
-
   subdivide() {
     let x = this.boundary.centre_x;
     let y = this.boundary.centre_y;

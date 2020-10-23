@@ -2,7 +2,7 @@ let population_slider;
 let init_infection_slider;
 let timeline_canvas;
 let timeline_height = 200;
-let canvas_height = 600;
+let canvas_height = 800;
 
 function setup() {
   createCanvas(windowWidth, canvas_height);

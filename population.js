@@ -37,13 +37,13 @@ class Population {
       let point = new Point(p.x, p.y, p);
       qtree.insert(point);
     }
-    qtree.show();
+
+    show_quadtree(qtree);
 
     for (let p of this.people) {
       p.show();
     }
 
-    // console.log(qtree);
   }
 
   test() {
