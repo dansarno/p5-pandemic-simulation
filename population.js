@@ -23,22 +23,47 @@ class Population {
     let qtree = new QuadTree(boundary, 4);
 
     for (let p of this.people) {
-      for (let q of this.people) {
-        if (p !== q && p.contact(q)) {
-          p.infection();
-          q.infection();
-        }
-      }
-
       p.bounce();
       p.checkup();
       p.move();
 
+      // Create point object for person p and insert into quadtree
       let point = new Point(p.x, p.y, p);
       qtree.insert(point);
     }
 
+
+    // O(n^2) collision detection
+    // for (let p of this.people) {
+    //   for (let q of this.people) {
+    //     if (p !== q && p.contact(q)) {
+    //       p.infection();
+    //       q.infection();
+    //     }
+    //   }
+    // }
+
+    // O(n log(n)) collision detection
+    for (let p of this.people) {
+      let neighbourhood = new Box(p.x, p.y, p.r, p.r);
+      let neighbours = qtree.query_range(neighbourhood);
+      for (let q of neighbours) {
+        if (p !== q.data && p.contact(q.data)) {
+          p.infection();
+          q.data.infection();
+        }
+      }
+    }
+
     show_quadtree(qtree);
+
+    // let my_range = new Box(mouseX, mouseY, 50, 50);
+    // let points_in_env = qtree.query_range(my_range);
+    // console.log(points_in_env);
+    // noFill();
+    // stroke(0);
+    // rectMode(CENTER);
+    // rect(mouseX, mouseY, 100, 100);
 
     for (let p of this.people) {
       p.show();

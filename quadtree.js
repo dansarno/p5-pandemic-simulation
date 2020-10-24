@@ -84,32 +84,34 @@ class QuadTree {
     return false;
   }
 
-//   // Find all points that appear within a range
-//   queryRange(area) {
-//     // Prepare an array of results
-//     Array of XY pointsInRange;
-//
-//     // Automatically abort if the range does not intersect this quad
-//     if (!boundary.intersectsAABB(range))
-//         return pointsInRange; // empty list
-//
-//     // Check objects at this quad level
-//     for (int p = 0; p < points.size; p++)
-//     {
-//         if (range.containsPoint(points[p]))
-//             pointsInRange.append(points[p]);
-//     }
-//
-//     // Terminate here, if there are no children
-//     if (northWest == null)
-//         return pointsInRange;
-//
-//     // Otherwise, add the points from the children
-//     pointsInRange.appendArray(northWest->queryRange(range));
-//     pointsInRange.appendArray(northEast->queryRange(range));
-//     pointsInRange.appendArray(southWest->queryRange(range));
-//     pointsInRange.appendArray(southEast->queryRange(range));
-//
-//     return pointsInRange;
-//   }
+  // Find all points that appear within a range
+  query_range(range) {
+    // Prepare an array of results
+    let pointsInRange = [];
+
+    // Automatically abort if the range does not intersect this quad
+    if (!this.boundary.intersects_box(range)) {
+        return pointsInRange; // empty list
+      }
+
+    // Check objects at this quad level
+    for (let p of this.points) {
+        if (range.contains_point(p)) {
+            pointsInRange.push(p);
+          }
+        }
+
+    // Terminate here, if there are no children
+    if (this.nw == null) {
+        return pointsInRange;
+      }
+
+    // Otherwise, add the points from the children
+    pointsInRange = pointsInRange.concat(this.nw.query_range(range));
+    pointsInRange = pointsInRange.concat(this.ne.query_range(range));
+    pointsInRange = pointsInRange.concat(this.sw.query_range(range));
+    pointsInRange = pointsInRange.concat(this.se.query_range(range));
+
+    return pointsInRange;
+  }
 }

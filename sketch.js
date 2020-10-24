@@ -2,20 +2,23 @@ let population_slider;
 let init_infection_slider;
 let timeline_canvas;
 let timeline_height = 200;
-let canvas_height = 800;
+let controls_height = 50;
 
 function setup() {
-  createCanvas(windowWidth, canvas_height);
+  // frameRate(30);
+  createCanvas(windowWidth, windowHeight - controls_height);
   let initial_frame = frameCount;
   timeline_canvas = createGraphics(windowWidth, timeline_height);
   timeline_canvas.background(255);
 
-  let button = createButton("Start Simulation");
-  button.mousePressed(resetSketch);
-  population_slider = createSlider(0, 200, 100, 1);
+  let reset_button = createButton("Start Simulation");
+  reset_button.mousePressed(resetSketch);
+  population_slider = createSlider(0, 500, 100, 1);
   init_infection_slider = createSlider(0.0, 0.2, 0.1, 0.01);
+  let show_button = createButton("Show QuadTree");
+  show_button.mousePressed(resetSketch);
 
-  env = new Environment(windowWidth, canvas_height - timeline_height);
+  env = new Environment(windowWidth, windowHeight - controls_height - timeline_height);
   resetSketch();
 }
 
@@ -25,8 +28,7 @@ function draw() {
   population.test();
 
   update_timeline(population, initial_frame);
-  image(timeline_canvas, 0, canvas_height - timeline_height);
-  // console.log(frameRate());
+  image(timeline_canvas, 0, windowHeight - controls_height - timeline_height);
   fill(0);
   noStroke();
   textSize(32);
