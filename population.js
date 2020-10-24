@@ -20,7 +20,7 @@ class Population {
   update() {
     let boundary = new Box(this.environment.w / 2, this.environment.h / 2,
       this.environment.w / 2, this.environment.h / 2);
-    let qtree = new QuadTree(boundary, 4);
+    let qtree = new QuadTree(boundary, 2);
 
     for (let p of this.people) {
       p.bounce();
@@ -55,20 +55,11 @@ class Population {
       }
     }
 
-    // show_quadtree(qtree);
-
-    // let my_range = new Box(mouseX, mouseY, 50, 50);
-    // let points_in_env = qtree.query_range(my_range);
-    // console.log(points_in_env);
-    // noFill();
-    // stroke(0);
-    // rectMode(CENTER);
-    // rect(mouseX, mouseY, 100, 100);
-
     for (let p of this.people) {
       p.show();
     }
 
+  return qtree;
   }
 
   test() {
