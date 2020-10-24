@@ -55,7 +55,7 @@ class Population {
       }
     }
 
-    show_quadtree(qtree);
+    // show_quadtree(qtree);
 
     // let my_range = new Box(mouseX, mouseY, 50, 50);
     // let points_in_env = qtree.query_range(my_range);
