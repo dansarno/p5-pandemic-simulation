@@ -39,7 +39,7 @@ function draw() {
     population.test();
 
     update_timeline(population, initial_frame);
-    // update_framerate_text();
+    update_framerate_text();
     image(timeline_canvas, 0, windowHeight - controls_height - timeline_height);
 
     current_frame++;
@@ -90,8 +90,9 @@ function update_timeline(people, startFrame) {
 }
 
 function update_framerate_text() {
-  fill(0);
+  fill(150);
   noStroke();
-  textSize(32);
-  text(int(frameRate()), 10, 30);
+  textSize(20);
+  text("Frame Rate:", 10, 30);
+  text(int(frameRate()), 130, 30);
 }
