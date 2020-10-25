@@ -24,11 +24,50 @@ class Box {
         this.top_edge < p.y && p.y < this.bottom_edge;
   }
 
-  intersects_box(other_box) {
-    return !(other_box.left_edge > this.right_edge ||
-         other_box.right_edge < this.left_edge ||
-         other_box.top_edge > this.bottom_edge ||
-         other_box.bottom_edge < this.top_edge);
+  intersects_box(range) {
+    return !(range.left_edge > this.right_edge ||
+         range.right_edge < this.left_edge ||
+         range.top_edge > this.bottom_edge ||
+         range.bottom_edge < this.top_edge);
+  }
+}
+
+class Circle {
+  constructor (centre_x, centre_y, radius) {
+    this.centre_x = centre_x;
+    this.centre_y = centre_y;
+    this.radius = radius;
+  }
+
+  contains_point(p) {
+    let d = dist(this.centre_x, this.centre_y, p.x, p.y);
+    return d <= this.radius;
+  }
+
+  intersects_circle(range) {
+    // no intersection
+    if (this.centre_x + this.radius < range.left_edge ||
+        this.centre_x - this.radius > range.right_edge ||
+        this.centre_y + this.radius < range.top_edge ||
+        this.centre_y - this.radius > range.bottom_edge) {
+          return false;
+        }
+
+    // must intersect if circle centre is within range boarders
+    if ((this.centre_x <= range.right_edge && this.centre_x >= range.left_edge) ||
+        (this.centre_y <= range.bottom_edge && this.centre_y >= range.top_edge)) {
+          return false;
+        }
+
+    // difficult intersection check on the corners of the range
+    let x_dist = Math.abs(range.centre_x - this.centre_x);
+    let y_dist = Math.abs(range.centre_y - this.centre_y);
+
+    corner_dist_sq = Math.pow(x_dist - range.half_w, 2) +
+                         Math.pow(y_dist - range.half_h, 2);
+
+    return (corner_dist_sq <= (this.radius * this.radius));
+
   }
 }
 
@@ -75,10 +114,10 @@ class QuadTree {
     //We have to add the points/data contained into this quad array to the new
     //quads if we only want the last node to hold the data
 
-    if (this.nw.insert(p)) {return true;}
-    if (this.ne.insert(p)) {return true;}
-    if (this.sw.insert(p)) {return true;}
-    if (this.se.insert(p)) {return true;}
+    if (this.nw.insert(p)) return true;
+    if (this.ne.insert(p)) return true;
+    if (this.sw.insert(p)) return true;
+    if (this.se.insert(p)) return true;
 
     // Otherwise, the point cannot be inserted for some unknown reason (this should never happen)
     return false;

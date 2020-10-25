@@ -93,6 +93,6 @@ function update_framerate_text() {
   fill(150);
   noStroke();
   textSize(20);
-  text("Frame Rate:", 10, 30);
-  text(int(frameRate()), 130, 30);
+  text("fps", 35, 30);
+  text(int(frameRate()), 10, 30);
 }

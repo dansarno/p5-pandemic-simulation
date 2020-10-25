@@ -20,7 +20,7 @@ class Population {
   update() {
     let boundary = new Box(this.environment.w / 2, this.environment.h / 2,
       this.environment.w / 2, this.environment.h / 2);
-    let qtree = new QuadTree(boundary, 2);
+    let qtree = new QuadTree(boundary, 4);
 
     for (let p of this.people) {
       p.bounce();
@@ -48,15 +48,17 @@ class Population {
 
     // O(n log(n)) collision detection
     for (let p of this.people) {
-      let neighbourhood = new Box(p.x, p.y, p.r * 2, p.r * 2);
+      // let neighbourhood = new Box(p.x, p.y, p.r, p.r);
+      let neighbourhood = new Circle(p.x, p.y, p.r * 2);
       let neighbours = qtree.query_range(neighbourhood);
-      for (let q of neighbours) {
+      for (let neighbour of neighbours) {
+        let q = neighbour.data;
         // stroke(68, 207, 95);
         // strokeWeight(3);
-        // line(p.x, p.y, q.data.x, q.data.y);
-        if (p !== q.data && p.contact(q.data)) {
+        // line(p.x, p.y, q.x, q.y);
+        if (p !== q && p.contact(q)) {
           p.infection();
-          q.data.infection();
+          q.infection();
         }
       }
     }
