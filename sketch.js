@@ -1,65 +1,58 @@
-let population_slider;
-let init_infection_slider;
+let sliderContainers = [];
 let timeline_canvas;
 let timeline_height = 200;
-let controls_height = 50;
+let controls_height = 60;
 let paused = false;
 let show_qtree = false;
+let show_frame_rate = true;
+let reset = false;
 let current_frame = 0;
 let new_qtree;
 
 function setup() {
   // frameRate(30);
-  createCanvas(windowWidth, windowHeight - controls_height);
+  createCanvas(windowWidth, windowHeight);
   let initial_frame = current_frame;
   timeline_canvas = createGraphics(windowWidth, timeline_height);
   timeline_canvas.background(255);
 
   let reset_button = createButton("Restart Simulation");
-  reset_button.mousePressed(resetSketch);
-  let pause_button = createButton("Play/Pause");
-  pause_button.mousePressed(paused_clicked);
-  let show_button = createButton("Hide/Unhide QTree");
-  show_button.mousePressed(hide_clicked);
+  reset_button.position(10, windowHeight - 55);
+  reset_button.size(150, 50);
+  reset_button.style("font-size", "14px");
+  reset_button.mousePressed(newSimulation);
 
-  population_slider = createSlider(1, 500, 100, 1);
-  init_infection_slider = createSlider(0.0, 0.2, 0.1, 0.01);
+  setupUI();
 
   env = new Environment(windowWidth, windowHeight - controls_height - timeline_height);
-  resetSketch();
+  newSimulation();
 }
 
 function draw() {
-  if (!paused) {
-    background(255);
-    new_qtree = population.update();
-    if (show_qtree) {
-      show_quadtree(new_qtree);
-    }
-    population.test();
+  if (reset) newSimulation();
 
-    update_timeline(population, initial_frame);
-    update_framerate_text();
-    image(timeline_canvas, 0, windowHeight - controls_height - timeline_height);
+  new_qtree = population.update();
+  if (show_qtree) show_quadtree(new_qtree);
 
-    current_frame++;
-  }
+  update_sliders();
+  update_timeline(population, initial_frame);
+  if (show_frame_rate) update_framerate_text();
+
+  image(timeline_canvas, 0, windowHeight - controls_height - timeline_height);
+  current_frame++;
 }
 
-function resetSketch() {
-  paused = false;
-  population = new Population(population_slider.value(),
-                              init_infection_slider.value(), env);
+function newSimulation() {
+  population = new Population(population_slider.value(), init_infection_slider.value(), env);
   initial_frame = current_frame;
   timeline_canvas.background(255);
+  reset = false;
 }
 
-function paused_clicked() {
-  paused = !paused;
-}
-
-function hide_clicked() {
-  show_qtree = !show_qtree;
+function update_sliders() {
+  for (let c of sliderContainers) {
+    c.show();
+  }
 }
 
 function update_timeline(people, startFrame) {
@@ -87,12 +80,4 @@ function update_timeline(people, startFrame) {
   timeline_canvas.stroke(color(170, 198, 202));
   timeline_canvas.line(x_pixel, 0,
     x_pixel, timeline_height -  pixel_lens[1] - pixel_lens[2]);
-}
-
-function update_framerate_text() {
-  fill(150);
-  noStroke();
-  textSize(20);
-  text("fps", 35, 30);
-  text(int(frameRate()), 10, 30);
 }

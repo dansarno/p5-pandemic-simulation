@@ -63,14 +63,17 @@ class Population {
       }
     }
 
+    background(255);
     for (let p of this.people) {
       p.show();
     }
 
+    this.study();
+
   return qtree;
   }
 
-  test() {
+  study() {
     this.S = 0;
     this.I = 0;
     this.R = 0;
