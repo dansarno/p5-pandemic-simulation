@@ -17,5 +17,5 @@ This project is a simple visual representation of a spatial SIR
 (susceptible, infectious, recovered) model run in p5.js. 
 The simulation uses a quadtree data structure to hold the location
 and information of the members of the population. A quadtree
-is a commonly used data structure when needed to detect collisions
-of many particles on a 2D plane.
+is a commonly used data structure when there is a need to efficiently
+detect collisions of many particles on a 2D plane.
