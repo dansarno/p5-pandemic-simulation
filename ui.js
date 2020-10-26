@@ -2,12 +2,19 @@ function setupUI() {
   populationSlider = createSlider(10, 500, 100, 10);
   initInfectionSlider = createSlider(0.0, 0.2, 0.1, 0.01);
 
-  sliderContainers.push(new SliderElement(null, null,
-    10, windowHeight - 55, color(255, 255, 255), 50, 50));
-  sliderContainers.push(new SliderElement(populationSlider, "Population Size",
-    70, windowHeight - 55, color(255, 255, 255)));
-  sliderContainers.push(new SliderElement(initInfectionSlider, "Initial Infection",
-    230, windowHeight - 55, color(255, 255, 255)));
+  // sliderContainers.push(new SliderElement(null, null,
+  //   10, windowHeight - 55, color(255, 255, 255), 50, 50));
+  sliderContainers.push(new SliderElement(populationSlider, 'Population Size',
+    100, windowHeight - 55, color(255, 255, 255)));
+  sliderContainers.push(new SliderElement(initInfectionSlider, 'Initial Infection',
+    260, windowHeight - 55, color(255, 255, 255)));
+
+  let resetButton = createButton('Restart');
+  resetButton.position(10, windowHeight - 55);
+  resetButton.size(80, 50);
+  resetButton.style('font-size', '14px');
+  resetButton.style('border-radius', '10px');
+  resetButton.mousePressed(newSimulation);
 }
 
 function updateFrameRateText() {
@@ -15,7 +22,7 @@ function updateFrameRateText() {
   noStroke();
   textSize(20);
   textAlign(LEFT);
-  text("fps", 35, 30);
+  text('fps', 35, 30);
   text(int(frameRate()), 10, 30);
 }
 
@@ -51,7 +58,7 @@ class SliderElement {
       noStroke();
       textSize(14);
       textAlign(LEFT, BOTTOM);
-      text(this.label + ":", this.x + this.padding, this.y + this.h - this.padding);
+      text(this.label + ':', this.x + this.padding, this.y + this.h - this.padding);
     }
 
     // Display slider value

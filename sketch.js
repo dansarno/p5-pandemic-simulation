@@ -9,11 +9,11 @@ let showFrameRate = true;
 let reset = false;
 let currentFrame = 0;
 let newQtree;
-let icon;
-
-function preload() {
-  icon = loadImage('assests/refresh_icon.png');
-}
+// let icon;
+//
+// function preload() {
+//   icon = loadImage('assests/refresh_icon.png');
+// }
 
 function setup() {
   // frameRate(10);
@@ -21,12 +21,6 @@ function setup() {
   let initialFrame = currentFrame;
   timelineCanvas = createGraphics(canvasWidth, timelineHeight);
   timelineCanvas.background(230);
-
-  // let resetButton = createButton("Restart Simulation");
-  // resetButton.position(10, windowHeight - 55);
-  // resetButton.size(150, 50);
-  // resetButton.style("font-size", "14px");
-  // resetButton.mousePressed(newSimulation);
 
   setupUI();
 
@@ -47,7 +41,7 @@ function draw() {
   image(timelineCanvas, 0, windowHeight - controlsHeight - timelineHeight);
   currentFrame++;
 
-  image(icon, 15, windowHeight - 50, 40, 40);
+  // image(icon, 15, windowHeight - 50, 40, 40);
 }
 
 function newSimulation() {

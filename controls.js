@@ -5,15 +5,15 @@ function keyPressed() {
     else loop();
   }
 
-  if (key == 'h') {
+  if (key == 'h' || key == 'H') {
     showQtree = !showQtree;
   }
 
-  if (key == 'f') {
+  if (key == 'f' || key == 'F') {
     showFrameRate = !showFrameRate;
   }
 
-  if (key == 'r') {
+  if (key == 'r' || key == 'R') {
     reset = !reset;
   }
 }
