@@ -7,66 +7,66 @@ class Point {
 }
 
 class Box {
-  constructor (centre_x, centre_y, half_w, half_h) {
-    this.centre_x = centre_x;
-    this.centre_y = centre_y;
-    this.half_w = half_w;
-    this.half_h = half_h;
+  constructor (centreX, centreY, halfW, halfH) {
+    this.centreX = centreX;
+    this.centreY = centreY;
+    this.halfW = halfW;
+    this.halfH = halfH;
     // Convenient attributes...
-    this.left_edge = this.centre_x - this.half_w;
-    this.right_edge = this.centre_x + this.half_w;
-    this.top_edge = this.centre_y - this.half_h;
-    this.bottom_edge = this.centre_y + this.half_h;
+    this.leftEdge = this.centreX - this.halfW;
+    this.rightEdge = this.centreX + this.halfW;
+    this.topEdge = this.centreY - this.halfH;
+    this.bottomEdge = this.centreY + this.halfH;
   }
 
-  contains_point(p) {
-    return this.left_edge < p.x && p.x < this.right_edge &&
-        this.top_edge < p.y && p.y < this.bottom_edge;
+  containsPoint(p) {
+    return this.leftEdge < p.x && p.x < this.rightEdge &&
+        this.topEdge < p.y && p.y < this.bottomEdge;
   }
 
-  intersects_box(range) {
-    return !(range.left_edge > this.right_edge ||
-         range.right_edge < this.left_edge ||
-         range.top_edge > this.bottom_edge ||
-         range.bottom_edge < this.top_edge);
+  intersectsBox(range) {
+    return !(range.leftEdge > this.rightEdge ||
+         range.rightEdge < this.leftEdge ||
+         range.topEdge > this.bottomEdge ||
+         range.bottomEdge < this.topEdge);
   }
 }
 
 class Circle {
-  constructor (centre_x, centre_y, radius) {
-    this.centre_x = centre_x;
-    this.centre_y = centre_y;
+  constructor (centreX, centreY, radius) {
+    this.centreX = centreX;
+    this.centreY = centreY;
     this.radius = radius;
   }
 
-  contains_point(p) {
-    let d = dist(this.centre_x, this.centre_y, p.x, p.y);
+  containsPoint(p) {
+    let d = dist(this.centreX, this.centreY, p.x, p.y);
     return d <= this.radius;
   }
 
-  intersects_circle(range) {
+  intersectsCircle(range) {
     // no intersection
-    if (this.centre_x + this.radius < range.left_edge ||
-        this.centre_x - this.radius > range.right_edge ||
-        this.centre_y + this.radius < range.top_edge ||
-        this.centre_y - this.radius > range.bottom_edge) {
+    if (this.centreX + this.radius < range.leftEdge ||
+        this.centreX - this.radius > range.rightEdge ||
+        this.centreY + this.radius < range.topEdge ||
+        this.centreY - this.radius > range.bottomEdge) {
           return false;
         }
 
     // must intersect if circle centre is within range boarders
-    if ((this.centre_x <= range.right_edge && this.centre_x >= range.left_edge) ||
-        (this.centre_y <= range.bottom_edge && this.centre_y >= range.top_edge)) {
+    if ((this.centreX <= range.rightEdge && this.centreX >= range.leftEdge) ||
+        (this.centreY <= range.bottomEdge && this.centreY >= range.topEdge)) {
           return false;
         }
 
     // difficult intersection check on the corners of the range
-    let x_dist = Math.abs(range.centre_x - this.centre_x);
-    let y_dist = Math.abs(range.centre_y - this.centre_y);
+    let xDist = Math.abs(range.centreX - this.centreX);
+    let yDist = Math.abs(range.centreY - this.centreY);
 
-    corner_dist_sq = Math.pow(x_dist - range.half_w, 2) +
-                         Math.pow(y_dist - range.half_h, 2);
+    cornerDistSq = Math.pow(xDist - range.halfW, 2) +
+                         Math.pow(yDist - range.halfH, 2);
 
-    return (corner_dist_sq <= (this.radius * this.radius));
+    return (cornerDistSq <= (this.radius * this.radius));
 
   }
 }
@@ -83,10 +83,10 @@ class QuadTree {
   }
 
   subdivide() {
-    let x = this.boundary.centre_x;
-    let y = this.boundary.centre_y;
-    let w = this.boundary.half_w / 2;
-    let h = this.boundary.half_h / 2;
+    let x = this.boundary.centreX;
+    let y = this.boundary.centreY;
+    let w = this.boundary.halfW / 2;
+    let h = this.boundary.halfH / 2;
     this.nw = new QuadTree(new Box(x - w, y - h, w, h), this.capacity);
     this.ne = new QuadTree(new Box(x + w, y - h, w, h), this.capacity);
     this.sw = new QuadTree(new Box(x - w, y + h, w, h), this.capacity);
@@ -96,7 +96,7 @@ class QuadTree {
   // Insert a point into the QuadTree
   insert(p) {
     // Ignore objects that do not belong in this quad tree
-    if (!this.boundary.contains_point(p)) {
+    if (!this.boundary.containsPoint(p)) {
         return false; // object cannot be added
       }
 
@@ -124,18 +124,18 @@ class QuadTree {
   }
 
   // Find all points that appear within a range
-  query_range(range) {
+  queryRange(range) {
     // Prepare an array of results
     let pointsInRange = [];
 
     // Automatically abort if the range does not intersect this quad
-    if (!this.boundary.intersects_box(range)) {
+    if (!this.boundary.intersectsBox(range)) {
         return pointsInRange; // empty list
       }
 
     // Check objects at this quad level
     for (let p of this.points) {
-        if (range.contains_point(p)) {
+        if (range.containsPoint(p)) {
             pointsInRange.push(p);
           }
         }
@@ -146,10 +146,10 @@ class QuadTree {
       }
 
     // Otherwise, add the points from the children
-    pointsInRange = pointsInRange.concat(this.nw.query_range(range));
-    pointsInRange = pointsInRange.concat(this.ne.query_range(range));
-    pointsInRange = pointsInRange.concat(this.sw.query_range(range));
-    pointsInRange = pointsInRange.concat(this.se.query_range(range));
+    pointsInRange = pointsInRange.concat(this.nw.queryRange(range));
+    pointsInRange = pointsInRange.concat(this.ne.queryRange(range));
+    pointsInRange = pointsInRange.concat(this.sw.queryRange(range));
+    pointsInRange = pointsInRange.concat(this.se.queryRange(range));
 
     return pointsInRange;
   }

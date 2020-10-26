@@ -1,7 +1,7 @@
 class Population {
-  constructor(size, init_infection, environment) {
+  constructor(size, initInfection, environment) {
     this.size = size;
-    this.init_infection = init_infection;
+    this.initInfection = initInfection;
     this.environment = environment;
     this.people = [];
     this.S = 0;
@@ -13,7 +13,7 @@ class Population {
 
   populate() {
     for (let i = 0; i < this.size; i++) {
-      this.people[i] = new Person(this.environment, random() < this.init_infection);
+      this.people[i] = new Person(this.environment, random() < this.initInfection);
     }
   }
 
@@ -48,9 +48,9 @@ class Population {
 
     // O(n log(n)) collision detection
     for (let p of this.people) {
-      // let neighbourhood = new Box(p.x, p.y, p.r, p.r);
-      let neighbourhood = new Circle(p.x, p.y, p.r * 2);
-      let neighbours = qtree.query_range(neighbourhood);
+      let neighbourhood = new Box(p.x, p.y, p.r * 2, p.r * 2);
+      // let neighbourhood = new Circle(p.x, p.y, p.r * 2);
+      let neighbours = qtree.queryRange(neighbourhood);
       for (let neighbour of neighbours) {
         let q = neighbour.data;
         // stroke(68, 207, 95);
@@ -90,13 +90,13 @@ class Population {
     }
   }
 
-  slow_down() {
+  slowDown() {
     for (let p of this.people) {
           p.speed *= 0.5;
       }
   }
 
-  speed_up() {
+  speedUp() {
     for (let p of this.people) {
           p.speed *= 1.5;
       }

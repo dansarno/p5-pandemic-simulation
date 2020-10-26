@@ -9,8 +9,8 @@ class Person {
     this.vx = random(-2, 2);
     this.vy = random(-2, 2);
     this.colour = color(170, 198, 202); // "#aac6ca";
-    this.days_infected = 0;
-    this.infection_period = random(10, 14);
+    this.daysInfected = 0;
+    this.infectionPeriod = random(10, 14);
     this.recovered = false;
 
     if (this.infected) {this.infection()}
@@ -18,8 +18,8 @@ class Person {
 
   contact(other) {
     let d = dist(this.x, this.y, other.x, other.y);
-    let is_in_contact = d < this.r + other.r
-    if (is_in_contact) {
+    let isInContact = d < this.r + other.r
+    if (isInContact) {
       if (this.infected || other.infected) {
         this.infected = true;
         other.infected = true;
@@ -50,11 +50,11 @@ class Person {
   }
 
   checkup() {
-    if (this.infected && this.days_infected > this.infection_period) {
+    if (this.infected && this.daysInfected > this.infectionPeriod) {
       this.recovery()
     }
     if (this.infected) {
-      this.days_infected += 0.1;
+      this.daysInfected += 0.1;
     }
   }
 

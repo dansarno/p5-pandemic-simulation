@@ -1,83 +1,91 @@
 let sliderContainers = [];
-let timeline_canvas;
-let timeline_height = 200;
-let controls_height = 60;
+let timelineCanvas;
+let timelineHeight = 150;
+let controlsHeight = 60;
+let canvasWidth = 720;
 let paused = false;
-let show_qtree = false;
-let show_frame_rate = true;
+let showQtree = false;
+let showFrameRate = true;
 let reset = false;
-let current_frame = 0;
-let new_qtree;
+let currentFrame = 0;
+let newQtree;
+
+let icon;
+function preload() {
+  icon = loadImage('assests/refresh_icon.png');
+}
 
 function setup() {
-  // frameRate(30);
-  createCanvas(windowWidth, windowHeight);
-  let initial_frame = current_frame;
-  timeline_canvas = createGraphics(windowWidth, timeline_height);
-  timeline_canvas.background(255);
+  // frameRate(10);
+  createCanvas(canvasWidth, windowHeight);
+  let initialFrame = currentFrame;
+  timelineCanvas = createGraphics(canvasWidth, timelineHeight);
+  timelineCanvas.background(230);
 
-  let reset_button = createButton("Restart Simulation");
-  reset_button.position(10, windowHeight - 55);
-  reset_button.size(150, 50);
-  reset_button.style("font-size", "14px");
-  reset_button.mousePressed(newSimulation);
+  // let resetButton = createButton("Restart Simulation");
+  // resetButton.position(10, windowHeight - 55);
+  // resetButton.size(150, 50);
+  // resetButton.style("font-size", "14px");
+  // resetButton.mousePressed(newSimulation);
 
   setupUI();
 
-  env = new Environment(windowWidth, windowHeight - controls_height - timeline_height);
+  env = new Environment(canvasWidth, windowHeight - controlsHeight - timelineHeight);
   newSimulation();
 }
 
 function draw() {
   if (reset) newSimulation();
 
-  new_qtree = population.update();
-  if (show_qtree) show_quadtree(new_qtree);
+  newQtree = population.update();
+  if (showQtree) showQuadtree(newQtree);
 
-  update_sliders();
-  update_timeline(population, initial_frame);
-  if (show_frame_rate) update_framerate_text();
+  updateSliders();
+  updateTimeline(population, initialFrame);
+  if (showFrameRate) updateFrameRateText();
 
-  image(timeline_canvas, 0, windowHeight - controls_height - timeline_height);
-  current_frame++;
+  image(timelineCanvas, 0, windowHeight - controlsHeight - timelineHeight);
+  currentFrame++;
+
+  image(icon, 15, windowHeight - 50, 40, 40);
 }
 
 function newSimulation() {
-  population = new Population(population_slider.value(), init_infection_slider.value(), env);
-  initial_frame = current_frame;
-  timeline_canvas.background(255);
+  population = new Population(populationSlider.value(), initInfectionSlider.value(), env);
+  initialFrame = currentFrame;
+  timelineCanvas.background(230);
   reset = false;
 }
 
-function update_sliders() {
+function updateSliders() {
   for (let c of sliderContainers) {
     c.show();
   }
 }
 
-function update_timeline(people, startFrame) {
-  let pixel_lens = [];
-  pixel_lens.push((people.S / people.size) * timeline_height);
-  pixel_lens.push((people.I / people.size) * timeline_height);
-  pixel_lens.push((people.R / people.size) * timeline_height);
+function updateTimeline(people, startFrame) {
+  let pixelLengths = [];
+  pixelLengths.push((people.S / people.size) * timelineHeight);
+  pixelLengths.push((people.I / people.size) * timelineHeight);
+  pixelLengths.push((people.R / people.size) * timelineHeight);
 
  // Largest remainder method to ensure the desired sum is met
-  pixel_lens = largestRemainderRound(pixel_lens, timeline_height);
+  pixelLengths = largestRemainderRound(pixelLengths, timelineHeight);
 
-  let x_pixel = current_frame - startFrame;
+  let xPixel = currentFrame - startFrame;
 
   // Draw infected
-  timeline_canvas.stroke(color(187, 100, 29));
-  timeline_canvas.line(x_pixel, timeline_height - pixel_lens[1],
-    x_pixel, timeline_height);
+  timelineCanvas.stroke(color(187, 100, 29));
+  timelineCanvas.line(xPixel, timelineHeight - pixelLengths[1],
+    xPixel, timelineHeight);
 
   // // Draw recoverd
-  timeline_canvas.stroke(color(203, 138, 192));
-  timeline_canvas.line(x_pixel, timeline_height - pixel_lens[1] - pixel_lens[2],
-    x_pixel, timeline_height - pixel_lens[1]);
+  timelineCanvas.stroke(color(203, 138, 192));
+  timelineCanvas.line(xPixel, timelineHeight - pixelLengths[1] - pixelLengths[2],
+    xPixel, timelineHeight - pixelLengths[1]);
 
   // Draw susceptible
-  timeline_canvas.stroke(color(170, 198, 202));
-  timeline_canvas.line(x_pixel, 0,
-    x_pixel, timeline_height -  pixel_lens[1] - pixel_lens[2]);
+  timelineCanvas.stroke(color(170, 198, 202));
+  timelineCanvas.line(xPixel, 0,
+    xPixel, timelineHeight -  pixelLengths[1] - pixelLengths[2]);
 }

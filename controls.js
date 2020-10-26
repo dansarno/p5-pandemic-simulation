@@ -6,11 +6,11 @@ function keyPressed() {
   }
 
   if (key == 'h') {
-    show_qtree = !show_qtree;
+    showQtree = !showQtree;
   }
 
   if (key == 'f') {
-    show_frame_rate = !show_frame_rate;
+    showFrameRate = !showFrameRate;
   }
 
   if (key == 'r') {
