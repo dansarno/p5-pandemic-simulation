@@ -1,3 +1,6 @@
+// Pandemic simulation
+// by Daniel Sarno
+
 let sliderContainers = [];
 let timelineCanvas;
 let timelineHeight = 150;
@@ -9,14 +12,8 @@ let showFrameRate = true;
 let reset = false;
 let currentFrame = 0;
 let newQtree;
-// let icon;
-//
-// function preload() {
-//   icon = loadImage('assests/refresh_icon.png');
-// }
 
 function setup() {
-  // frameRate(10);
   createCanvas(canvasWidth, windowHeight);
   let initialFrame = currentFrame;
   timelineCanvas = createGraphics(canvasWidth, timelineHeight);
@@ -40,8 +37,6 @@ function draw() {
 
   image(timelineCanvas, 0, windowHeight - controlsHeight - timelineHeight);
   currentFrame++;
-
-  // image(icon, 15, windowHeight - 50, 40, 40);
 }
 
 function newSimulation() {
