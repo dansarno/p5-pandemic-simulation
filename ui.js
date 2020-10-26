@@ -3,11 +3,11 @@ function setupUI() {
   initInfectionSlider = createSlider(0.0, 0.2, 0.1, 0.01);
 
   sliderContainers.push(new SliderElement(null, null,
-      10, windowHeight - 55, color(255, 255, 255), 50, 50));
+    10, windowHeight - 55, color(255, 255, 255), 50, 50));
   sliderContainers.push(new SliderElement(populationSlider, "Population Size",
-      70, windowHeight - 55, color(255, 255, 255)));
+    70, windowHeight - 55, color(255, 255, 255)));
   sliderContainers.push(new SliderElement(initInfectionSlider, "Initial Infection",
-      230, windowHeight - 55, color(255, 255, 255)));
+    230, windowHeight - 55, color(255, 255, 255)));
 }
 
 function updateFrameRateText() {
@@ -20,7 +20,7 @@ function updateFrameRateText() {
 }
 
 class SliderElement {
-  constructor (slider, label, x, y, colour, w=150, h=50) {
+  constructor(slider, label, x, y, colour, w = 150, h = 50) {
     this.slider = slider;
     this.label = label;
     this.x = x;
@@ -32,7 +32,7 @@ class SliderElement {
     this.padding = 10;
 
     if (this.slider) {
-      this.slider.style('width', (this.w - (2 * this.padding)) +'px')
+      this.slider.style('width', (this.w - (2 * this.padding)) + 'px')
       this.slider.position(this.x + this.padding, this.y + (this.padding / 2));
     }
   }

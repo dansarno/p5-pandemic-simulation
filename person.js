@@ -1,5 +1,5 @@
 class Person {
-  constructor(environment, infected=false) {
+  constructor(environment, infected = false) {
     this.environment = environment;
     this.infected = infected;
     this.r = 5;
@@ -13,7 +13,9 @@ class Person {
     this.infectionPeriod = random(10, 14);
     this.recovered = false;
 
-    if (this.infected) {this.infection()}
+    if (this.infected) {
+      this.infection()
+    }
   }
 
   contact(other) {
@@ -24,8 +26,7 @@ class Person {
         this.infected = true;
         other.infected = true;
         return true;
-      }
-      else {
+      } else {
         return false;
       }
     }

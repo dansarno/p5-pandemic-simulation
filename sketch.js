@@ -9,8 +9,8 @@ let showFrameRate = true;
 let reset = false;
 let currentFrame = 0;
 let newQtree;
-
 let icon;
+
 function preload() {
   icon = loadImage('assests/refresh_icon.png');
 }
@@ -69,7 +69,7 @@ function updateTimeline(people, startFrame) {
   pixelLengths.push((people.I / people.size) * timelineHeight);
   pixelLengths.push((people.R / people.size) * timelineHeight);
 
- // Largest remainder method to ensure the desired sum is met
+  // Largest remainder method to ensure the desired sum is met
   pixelLengths = largestRemainderRound(pixelLengths, timelineHeight);
 
   let xPixel = currentFrame - startFrame;
@@ -87,5 +87,5 @@ function updateTimeline(people, startFrame) {
   // Draw susceptible
   timelineCanvas.stroke(color(170, 198, 202));
   timelineCanvas.line(xPixel, 0,
-    xPixel, timelineHeight -  pixelLengths[1] - pixelLengths[2]);
+    xPixel, timelineHeight - pixelLengths[1] - pixelLengths[2]);
 }

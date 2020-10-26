@@ -70,7 +70,7 @@ class Population {
 
     this.study();
 
-  return qtree;
+    return qtree;
   }
 
   study() {
@@ -80,11 +80,9 @@ class Population {
     for (let p of this.people) {
       if (p.infected) {
         this.I++;
-      }
-      else if (p.recovered) {
+      } else if (p.recovered) {
         this.R++;
-      }
-      else {
+      } else {
         this.S++;
       }
     }
@@ -92,13 +90,13 @@ class Population {
 
   slowDown() {
     for (let p of this.people) {
-          p.speed *= 0.5;
-      }
+      p.speed *= 0.5;
+    }
   }
 
   speedUp() {
     for (let p of this.people) {
-          p.speed *= 1.5;
-      }
+      p.speed *= 1.5;
+    }
   }
 }

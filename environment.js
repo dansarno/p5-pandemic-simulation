@@ -1,5 +1,5 @@
 class Environment {
-  constructor (w, h) {
+  constructor(w, h) {
     this.w = w;
     this.h = h;
   }
