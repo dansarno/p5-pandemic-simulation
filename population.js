@@ -49,13 +49,9 @@ class Population {
     // O(n log(n)) collision detection
     for (let p of this.people) {
       let neighbourhood = new Box(p.x, p.y, p.r * 2, p.r * 2);
-      // let neighbourhood = new Circle(p.x, p.y, p.r * 2);
       let neighbours = qtree.queryRange(neighbourhood);
       for (let neighbour of neighbours) {
         let q = neighbour.data;
-        // stroke(68, 207, 95);
-        // strokeWeight(3);
-        // line(p.x, p.y, q.x, q.y);
         if (p !== q && p.contact(q)) {
           p.infection();
           q.infection();
