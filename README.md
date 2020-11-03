@@ -33,10 +33,12 @@ with additional attributes like...
 - a person's age
 - a person's individual R number
 - an infected person's viral load (based of proximity when infection occured)
+
 ... and behviours like...
 - slowing down of the infected
 - lockdown simulation, with most members of the population stopping
 - avoidance of the infected by the susceptible
+
 ... all being simple to incorporate.
 
 
