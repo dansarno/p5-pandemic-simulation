@@ -7,6 +7,7 @@ was inspired by [Coding Train's Quadtree coding challenge #98](https://thecoding
 where it is featured as a community contribution.
 
 The simulation can be viewed and controlled [here](https://dansarno.github.io/p5-pandemic-simulation/).
+
 ![Simulation gif](assets/sim_gif.gif)
 
 #### Key Bindings
