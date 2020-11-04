@@ -8,7 +8,9 @@ where it is featured as a community contribution.
 
 The simulation can be viewed and controlled [here](https://dansarno.github.io/p5-pandemic-simulation/).
 
-<img src="assets/sim_gif.gif" width="500"/>
+<p align="center">
+  <img src="assets/sim_gif.gif" width="500"/>
+</p>
 
 #### Key Bindings
 - `p` = pause/resume simulation
