@@ -5,6 +5,7 @@ article by Harry Stevens published in the Washington Post
 on March 14, 2020.
 
 The simulation can be viewed and controlled [here](https://dansarno.github.io/p5-pandemic-simulation/).
+![Simulation gif](assets/sim_gif.gif)
 
 #### Key Bindings
 - `p` = pause/resume simulation
@@ -14,7 +15,7 @@ The simulation can be viewed and controlled [here](https://dansarno.github.io/p5
 
 ### About
 This project is a simple visual representation of a spatial SIR
-(susceptible, infectious, recovered) model run in p5.js. 
+(susceptible, infectious, recovered) model run in p5.js.
 The simulation uses a quadtree data structure to hold the location
 and information of the members of the population. A quadtree
 is a commonly used data structure when there is a need to efficiently
