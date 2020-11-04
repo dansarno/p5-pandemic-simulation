@@ -1,4 +1,4 @@
-# Pandemic Simulation
+# Pandemic Simulation 🦠
 Simulation inspired the popular [Why outbreaks like
 coronavirus spread exponentially and how to "flatten the curve"](https://www.washingtonpost.com/graphics/2020/world/corona-simulator/)
 article by Harry Stevens published in the Washington Post
@@ -25,9 +25,9 @@ This project is a simple visual representation of a spatial SIR
 Members of the population are represented as dots bouncing
 around on a 2d plane with random speeds and directions.
 Each person has a radius within which infection can travel if one
-person is susceptible and the other person is infected. A person
+person is susceptible 🔵 and the other person is infected 🟠. A person
 remains infected for between 100 and 140 frames after which they
-have recovered and can no longer be a vector of infection.
+have recovered 🟣 and can no longer be a vector of infection.
 
 A simulation like this lends itself well to the object-orientated 
 programming model, with members of the population, the population
