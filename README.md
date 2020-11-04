@@ -18,7 +18,7 @@ The simulation can be viewed and controlled [here](https://dansarno.github.io/p5
 - <kbd>H</kbd> = show/hide quadtree
 - <kbd>F</kbd> = hide/show frames per second
 
-### About
+## About
 This project is a simple visual representation of a spatial SIR
 (susceptible, infectious, recovered) model built with p5.js.
 
@@ -46,7 +46,7 @@ with additional attributes like...
 ... all being simple to incorporate.
 
 
-### Behind The Scenes - Quadtree Implementation
+## Behind The Scenes - Quadtree Implementation
 The simulation uses a quadtree data structure to hold the location
 and information of the members of the population. A quadtree
 is a commonly used data structure which is implemented when there
