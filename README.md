@@ -13,10 +13,10 @@ The simulation can be viewed and controlled [here](https://dansarno.github.io/p5
 </p>
 
 #### Key Bindings
-- `p` = pause/resume simulation
-- `r` = restart simulation
-- `h` = show/hide quadtree
-- `f` = hide/show frames per second
+- <kbd>p</kbd> = pause/resume simulation
+- <kbd>r</kbd> = restart simulation
+- <kbd>h</kbd> = show/hide quadtree
+- <kbd>f</kbd> = hide/show frames per second
 
 ### About
 This project is a simple visual representation of a spatial SIR
