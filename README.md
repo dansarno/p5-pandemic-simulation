@@ -26,7 +26,7 @@ person is susceptible and the other person is infected. A person
 remains infected for between 100 and 140 frames after which they
 have recovered and can no longer be a vector of infection.
 
-A simulation like this lends itself well to the object-orientated 
+A simulation like this lends itself well to the object-orientated
 programming model, with members of the population, the population
 as a whole and the environment having unique attributes
 and behaviours. This code base is configurable and expandable,
