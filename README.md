@@ -1,4 +1,4 @@
-# Pandemic Simulation
+# Pandemic Simulation 🦠
 Simulation inspired the popular [Why outbreaks like
 coronavirus spread exponentially and how to "flatten the curve"](https://www.washingtonpost.com/graphics/2020/world/corona-simulator/)
 article by Harry Stevens published in the Washington Post
@@ -7,24 +7,27 @@ was inspired by [Coding Train's Quadtree coding challenge #98](https://thecoding
 where it is featured as a community contribution.
 
 The simulation can be viewed and controlled [here](https://dansarno.github.io/p5-pandemic-simulation/).
-![Simulation gif](assets/sim_gif.gif)
+
+<p align="center">
+  <img src="assets/sim_gif.gif" width="500"/>
+</p>
 
 #### Key Bindings
-- `p` = pause/resume simulation
-- `r` = restart simulation
-- `h` = show/hide quadtree
-- `f` = hide/show frames per second
+- <kbd>P</kbd> = pause/resume simulation
+- <kbd>R</kbd> = restart simulation
+- <kbd>H</kbd> = show/hide quadtree
+- <kbd>F</kbd> = hide/show frames per second
 
-### About
+## About
 This project is a simple visual representation of a spatial SIR
 (susceptible, infectious, recovered) model built with p5.js.
 
 Members of the population are represented as dots bouncing
 around on a 2d plane with random speeds and directions.
 Each person has a radius within which infection can travel if one
-person is susceptible and the other person is infected. A person
+person is susceptible 🔵 and the other person is infected 🟠. A person
 remains infected for between 100 and 140 frames after which they
-have recovered and can no longer be a vector of infection.
+have recovered 🟣 and can no longer be a vector of infection.
 
 A simulation like this lends itself well to the object-orientated
 programming model, with members of the population, the population
@@ -43,7 +46,7 @@ with additional attributes like...
 ... all being simple to incorporate.
 
 
-### Behind The Scenes - Quadtree Implementation
+## Behind The Scenes - Quadtree Implementation
 The simulation uses a quadtree data structure to hold the location
 and information of the members of the population. A quadtree
 is a commonly used data structure which is implemented when there
